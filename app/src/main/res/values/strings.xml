@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">test</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="favorite_tag">favorite</string>
+    <string name="not_favorite_tag">not_favorite</string>
+    <string name="pokemon_image">Pokemon Image</string>
+    <string name="arrow_to_go_to_list_pokemons">arrow to go to list pokemons</string>
+    <string name="to_put_pokemon_a_favorite">To put pokemon a favorite</string>
+    <string name="image_of_pokemon">Image of pokemon</string>
+    <string name="height">height</string>
+    <string name="id">id</string>
+    <string name="weight">weight</string>
+</resources>

@@ -25,13 +25,6 @@ class Repository @Inject constructor(
         return pokemonService.getPokemon(id)
     }
 
-    private val pokemonList: MutableList<ResultsResponse> = ArrayList()
-    private val compositeDisposable = CompositeDisposable()
-    private val pokemonListLiveData = MutableLiveData<List<ResultsResponse>>()
-    private val progressBarLiveData = MutableLiveData<Boolean>()
-    private val swipeRefreshLayoutLiveData = MutableLiveData<Boolean>()
-    private val toastLiveData = MutableLiveData<String>()
-
     override suspend fun getPokemonList(): ListPokemon {
         return withContext(Dispatchers.IO) {
             pokemonService.get151Pokemons()
@@ -57,13 +50,6 @@ class Repository @Inject constructor(
         }
     }
 
-    override suspend fun getFavoritePokemons(): List<ResultsResponse> {
-        return withContext(Dispatchers.IO) {
-            roomPokemonDao.getFavoritePokemons()
-        }
-
-    }
-
     override suspend fun getPokemonInfo(name: String): PokemonInfoResult {
         return try {
             val pokemons =pokemonService.getPokemon(name)
@@ -77,12 +63,32 @@ class Repository @Inject constructor(
                 }
             }
             // Fetch the Pokemons from the Room database instead
-            roomPokemonDao.getPokemonInfo(name)
+            val pokemonInfoResult= roomPokemonDao.getPokemonInfo(name)
+            if (pokemonInfoResult == null) {
+                val pokemonInfoResult1 = PokemonInfoResult()
+                pokemonInfoResult1.name = name
+                return pokemonInfoResult1
+            }else{
+                return pokemonInfoResult
+            }
         }
     }
 
+    override suspend fun getFavoritePokemons(): List<ResultsResponse> {
+        return withContext(Dispatchers.IO) {
+            roomPokemonDao.getFavoritePokemons()
+        }
+
+    }
+
+
+
     override suspend fun addPokemonToRoom(pokemon: ResultsResponse) {
             roomPokemonDao.addRoomPokemonItem(pokemon)
+    }
+
+    override suspend fun addFavoritePokemon(pokemon: ResultsResponse) {
+        roomPokemonDao.addFavoritePokemon(pokemon)
     }
 
     override suspend fun getAllPokemonsFromRoom(): List<ResultsResponse> {

@@ -61,10 +61,20 @@ class ListPokemonFragment : Fragment(),
     }
     private fun loadPokemons() {
         lifecycleScope.launch {
-            val offset =( page-1) * limit
+            val offset =0
             val l = repo.getPokemons( limit,offset)
             addPokemons(l)
             setUpRecyclerView()
+            page=1
+        }
+    }
+
+    private fun loadpokemons1(){
+        lifecycleScope.launch {
+            val offset =( page-1) * limit
+            val l = repo.getPokemons( limit,offset)
+            addPokemons(l)
+            listAdapter?.addPokemons(list)
             page++  // Increment the page number for the next load
         }
     }
@@ -102,12 +112,12 @@ class ListPokemonFragment : Fragment(),
                 val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.GridLayoutManager
                 val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
                 if (lastVisibleItemPosition == list.size - 1) {
-                    loadPokemons()
+                    loadpokemons1()
 
                 }
             }
         })
-       // if (listAdapter == null) {
+        //if (listAdapter == null) {
             listAdapter = pokemonListAdapter(requireActivity())
             _binding?.pokemonRecyclerview?.adapter = listAdapter
             _binding?.pokemonRecyclerview?.setHasFixedSize(true)
@@ -115,8 +125,8 @@ class ListPokemonFragment : Fragment(),
                 androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
             listAdapter?.setPokemonList(list)
             listAdapter?.listener = this
-      //  } else {
-        //    listAdapter?.addPokemons(list)
+        //} else {
+          //     listAdapter?.addPokemons(list)
         //}
     }
 

@@ -15,4 +15,7 @@
     <string name="height">height</string>
     <string name="id">id</string>
     <string name="weight">weight</string>
+    <string name="favorites">favorites</string>
+    <string name="list">List</string>
+    <string name="search">search</string>
 </resources>

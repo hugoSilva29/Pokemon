@@ -19,8 +19,6 @@ class pokemonListAdapter(private val context: Context,
         fun onClick(namePoke: String?, imagePoke: String?)
     }
 
-
-
     fun setPokemonList(pokemonList1: MutableList<ResultsResponse>) {
         val uniquePokemonList = pokemonList1.toSet().toMutableList()
         pokemonList.clear()
@@ -29,8 +27,13 @@ class pokemonListAdapter(private val context: Context,
     }
 
     fun addPokemons(pokemonList1: List<ResultsResponse>) {
-        val newPokemons = pokemonList1.filter { it !in pokemonList }
-        pokemonList.addAll(newPokemons)
+        for (i in pokemonList1.indices) {
+            val id= pokemonList1[i].offset
+            if (pokemonList.any { it.offset == id }) {
+                continue  // Skip this iteration if id is already present
+            }
+            pokemonList.add(pokemonList1[i])
+        }
         notifyDataSetChanged()
     }
 

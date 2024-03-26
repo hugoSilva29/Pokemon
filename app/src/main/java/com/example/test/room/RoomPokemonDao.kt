@@ -13,6 +13,8 @@ interface RoomPokemonDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addRoomPokemonItem(res: ResultsResponse)
 
+
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addRoomPokemonInfoItem(res: PokemonInfoResult)
     @Query("SELECT * FROM PokemonInfo WHERE name = :name")
@@ -21,9 +23,13 @@ interface RoomPokemonDao {
     @Query("SELECT * FROM PokemonList")
     suspend  fun getAll(): List<ResultsResponse>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun addFavoritePokemon(res: ResultsResponse)
+
     @Query("SELECT EXISTS(SELECT * FROM PokemonList WHERE `offset` = :id)")
     suspend fun isPokemonSaved(id: Int): Boolean
-    @Query("SELECT EXISTS(SELECT * FROM PokemonList WHERE `offset` = :id AND isFavorite = 1)")
+
+    @Query("SELECT EXISTS(SELECT * FROM PokemonList WHERE `offset` = :id AND isFavorite = true)")
     suspend fun isPokemonFavorite(id: Int): Boolean
     @Query("DELETE FROM PokemonList WHERE `name` = :name")
     suspend fun deletePokemonFromRoom(name: String)
@@ -31,6 +37,8 @@ interface RoomPokemonDao {
     @Query("DELETE FROM PokemonList")
     suspend fun deleteAllPokemonsFromRoom()
 
-    @Query("SELECT * FROM PokemonList WHERE isFavorite = 1")
+    @Query("SELECT * FROM PokemonList WHERE isFavorite = true")
     suspend fun getFavoritePokemons(): List<ResultsResponse>
+
+
 }

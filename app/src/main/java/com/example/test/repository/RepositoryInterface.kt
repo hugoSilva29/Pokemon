@@ -15,4 +15,5 @@ interface RepositoryInterface {
     suspend fun deleteAllPokemonsFromRoom()
     suspend fun getPokemons(offset: Int,limit:Int): ListPokemon
     suspend fun getFavoritePokemons(): List<ResultsResponse>
+    suspend fun   addFavoritePokemon(pokemon: ResultsResponse)
 }

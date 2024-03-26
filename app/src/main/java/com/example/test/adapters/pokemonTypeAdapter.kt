@@ -9,7 +9,7 @@ import com.example.test.pokemonlist.Type
 import com.example.test.pokemonlist.Types
 
 class pokemonTypeAdapter: RecyclerView.Adapter<pokemonTypeAdapter.RecyclerViewViewHolder>() {
-    private val pokemonList: ArrayList<Types> = ArrayList()
+    private val pokemonList: MutableList<Types> = mutableListOf()
     private var binding: TypeLayoutBinding? = null
 
  fun setPokemonList(pokemonList1: List<Types>) {

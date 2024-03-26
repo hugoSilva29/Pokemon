@@ -58,11 +58,22 @@ class MainActivity : AppCompatActivity() {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
-            R.id.action_settings -> {
+            R.id.favoritesFragment -> {
                 // Navigate to FragmentX
                 navController.navigate(R.id.favoritesPokemonFragment)
                 true
             }
+            R.id.ListFragment -> {
+                // Navigate to FragmentX
+                navController.navigate(R.id.FirstFragment)
+                true
+            }
+            R.id.searchFragment -> {
+                // Navigate to FragmentX
+                navController.navigate(R.id.fragment_search)
+                true
+            }
+
             else -> super.onOptionsItemSelected(item)
         }
     }

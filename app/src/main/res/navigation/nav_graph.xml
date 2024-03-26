@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.test.fragments.ListPokemonFragment"
-        android:label="@string/first_fragment_label"
+        android:label="List of Pokemon's"
         tools:layout="@layout/fragment_list_pokemon">
 
         <action
@@ -28,10 +28,18 @@
     <fragment
         android:id="@+id/favoritesPokemonFragment"
         android:name="com.example.test.fragments.favoritesPokemonFragment"
-        android:label="fragment_favorits_pokemon"
+        android:label="Favorites"
         tools:layout="@layout/fragment_favorits_pokemon" >
         <action
             android:id="@+id/action_favoritesPokemonFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_search"
+        android:name="com.example.test.fragments.SearchFragment"
+        android:label="Search Pokemon"
+        tools:layout="@layout/frgament_search">
+
     </fragment>
 </navigation>

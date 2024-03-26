@@ -85,7 +85,7 @@ class InfoPokemonFragment : Fragment() {
                         true
                     )
                     lifecycleScope.launch {
-                        repo.addPokemonToRoom(resul)
+                        repo.addFavoritePokemon(resul)
                     }
                     Toast.makeText(context, "Pokemon added to favorites", Toast.LENGTH_SHORT).show()
                     setFavoriteIcon(binding.pokemonFav)
@@ -113,8 +113,6 @@ class InfoPokemonFragment : Fragment() {
                 Glide.with(it)
                     .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/" + l.id.toString() + ".png")
                     .into(binding.pokemonInfoImage)
-
-
             }
             if (repo.isPokemonFavorite(l.id)) {
                 setFavoriteIcon(binding.pokemonFav)

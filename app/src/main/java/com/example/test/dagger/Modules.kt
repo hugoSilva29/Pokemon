@@ -67,6 +67,47 @@ class RetrofitModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+
+    @Singleton
+    @Provides
+    fun provideHttpClient(interceptor: Interceptor, cache: Cache): OkHttpClient =
+        OkHttpClient.Builder()
+            .addNetworkInterceptor(interceptor)
+            .cache(cache)
+            .build()
+
+    @Singleton
+    @Provides
+    fun provideInterceptor(): Interceptor =
+        HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
+            .apply { level = HttpLoggingInterceptor.Level.BASIC }
+
+    @Singleton
+    @Provides
+    fun provideCache(context: Context): Cache = Cache(context.cacheDir, 5 * 5 * 1024)
+
+    @Singleton
+    @Provides
+    fun provideRxCallAdapter(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
+
+}
+
+@Module
+class SearchModule{
+
+    @Singleton
+    @Provides
+    fun provideRetrofit(
+        httpClient: OkHttpClient,
+        callAdapterFactory: RxJava2CallAdapterFactory
+    ): Retrofit =
+        Retrofit.Builder()
+            .client(httpClient)
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
+            .baseUrl("https://beta.pokeapi.co/graphql/v1beta")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+
     @Singleton
     @Provides
     fun provideHttpClient(interceptor: Interceptor, cache: Cache): OkHttpClient =

@@ -12,4 +12,15 @@
     <color name="dark_grey">#3A3B3C</color>
     <color name="light_grey">#DCDCDC</color>
     <color name="border_color">#DD202020</color>
+
+
+
+    <color name="colorPrimary">#839e45</color>
+    <color name="OnPrimary">#464d35</color>
+    <color name="PrimaryContainer">#deeeba</color>
+    <color name="OnPrimaryContainer">#264619</color>
+    <color name="Outline">#79747E</color>
+    <color name="OutlineVariant">#CAC4D0</color>
+    <color name="textColor">#FF000000</color>
+
 </resources>

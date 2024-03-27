@@ -41,5 +41,8 @@
         android:label="Search Pokemon"
         tools:layout="@layout/frgament_search">
 
+        <action
+            android:id="@+id/action_fragment_search_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
     </fragment>
 </navigation>

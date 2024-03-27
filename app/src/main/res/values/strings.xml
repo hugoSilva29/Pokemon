@@ -18,4 +18,6 @@
     <string name="favorites">favorites</string>
     <string name="list">List</string>
     <string name="search">search</string>
+    <string name="pokeom_type">Pokeom type</string>
+    <string name="pokemon_name">Pokemon name</string>
 </resources>

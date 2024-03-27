@@ -137,7 +137,7 @@ class InfoPokemonFragment : Fragment() {
         _binding?.pokemonRecyclerviewTypes?.adapter = typeAdapter
         _binding?.pokemonRecyclerviewTypes?.setHasFixedSize(true)
         _binding?.pokemonRecyclerviewTypes?.layoutManager =
-            androidx.recyclerview.widget.GridLayoutManager(requireContext(), 1)
+            androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
         typeAdapter?.setPokemonList(types)
     }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+
+
+    <color name="colorPrimary">#193000</color>
+    <color name="OnPrimary">#0f2702</color>
+    <color name="PrimaryContainer">#264619</color>
+    <color name="OnPrimaryContainer">#464d35</color>
+    <color name="Outline">#938F99</color>
+    <color name="OutlineVariant">#49454F</color>
+    <color name="textColor">#FFFFFFFF</color>
+
+
+
+</resources>

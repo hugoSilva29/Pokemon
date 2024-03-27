@@ -1,6 +1,7 @@
 package com.example.test.fragments
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,8 +64,14 @@ class favoritesPokemonFragment : Fragment(), pokemonListAdapter.OnItemClickListe
         listAdapter = pokemonListAdapter(requireActivity())
         _binding?.pokemonRecyclerview?.adapter = listAdapter
         _binding?.pokemonRecyclerview?.setHasFixedSize(true)
-        _binding?.pokemonRecyclerview?.layoutManager =
-            androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
+        val orientation = resources.configuration.orientation
+        val gridLayoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // In landscape mode, you might want more columns
+            _binding?.pokemonRecyclerview?.layoutManager =  androidx.recyclerview.widget.GridLayoutManager(requireContext(), 5)
+        } else {
+            // In portrait mode
+            _binding?.pokemonRecyclerview?.layoutManager =  androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
+        }
         listAdapter?.setPokemonList(list)
         listAdapter?.listener = this
     }

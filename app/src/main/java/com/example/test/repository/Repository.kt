@@ -45,7 +45,7 @@ class Repository @Inject constructor(
                 }
             }
             // Fetch the Pokemons from the Room database instead
-            val pokemonsFromRoom = roomPokemonDao.getAll()
+            val pokemonsFromRoom = roomPokemonDao.getPokemons(offset, limit)
             return ListPokemon(pokemonsFromRoom)
         }
     }

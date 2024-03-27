@@ -1,11 +1,13 @@
 package com.example.test.fragments
 
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -47,10 +49,9 @@ class ListPokemonFragment : Fragment(),
     ): View {
         _binding = FragmentListPokemonBinding.inflate(inflater, container, false)
         lifecycleScope.launch {
-            //val l = repo.getPokemonList()
-           // addPokemons(l)
-           // setUpRecyclerView()
+
             loadPokemons()
+            setUpRecyclerView1()
         }
         return binding.root
     }
@@ -103,31 +104,36 @@ class ListPokemonFragment : Fragment(),
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+
     }
-
     private fun setUpRecyclerView() {
+        listAdapter = pokemonListAdapter(requireActivity())
+        _binding?.pokemonRecyclerview?.adapter = listAdapter
+        _binding?.pokemonRecyclerview?.setHasFixedSize(true)
+        val orientation = resources.configuration.orientation
+        val gridLayoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // In landscape mode, you might want more columns
+            _binding?.pokemonRecyclerview?.layoutManager =  androidx.recyclerview.widget.GridLayoutManager(requireContext(), 5)
+        } else {
+            // In portrait mode
+            _binding?.pokemonRecyclerview?.layoutManager =  androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
+        }
+        listAdapter?.setPokemonList(list)
+        listAdapter?.listener = this
+    }
+    private fun setUpRecyclerView1() {
 
-        _binding?.pokemonRecyclerview?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                val layoutManager = recyclerView.layoutManager as androidx.recyclerview.widget.GridLayoutManager
-                val lastVisibleItemPosition = layoutManager.findLastVisibleItemPosition()
-                if (lastVisibleItemPosition == list.size - 1) {
-                    loadpokemons1()
-
-                }
+        _binding?.NestedScrollView?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+                // If the user has scrolled to the end of the list, load more items
+                loadpokemons1()
             }
         })
-        //if (listAdapter == null) {
-            listAdapter = pokemonListAdapter(requireActivity())
-            _binding?.pokemonRecyclerview?.adapter = listAdapter
-            _binding?.pokemonRecyclerview?.setHasFixedSize(true)
-            _binding?.pokemonRecyclerview?.layoutManager =
-                androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
-            listAdapter?.setPokemonList(list)
-            listAdapter?.listener = this
-        //} else {
-          //     listAdapter?.addPokemons(list)
-        //}
+        if (listAdapter==null) {
+            setUpRecyclerView()
+        } else {
+             listAdapter?.addPokemons(list)
+        }
     }
 
     override fun onClick(namePoke: String?, imagePoke: String?) {
@@ -138,4 +144,8 @@ class ListPokemonFragment : Fragment(),
         findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment, bundle)
     }
 
+    override fun onResume() {
+        super.onResume()
+        setUpRecyclerView()
+    }
 }

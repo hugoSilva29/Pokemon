@@ -15,7 +15,7 @@ import com.example.test.pokemonlist.ListPokemon
 import com.example.test.pokemonlist.ResultsResponse
 import kotlinx.coroutines.launch
 
-class SearchFragment: Fragment(), pokemonListAdapter.OnItemClickListener {
+class SearchFragment : Fragment(), pokemonListAdapter.OnItemClickListener {
 
     private var _binding: FrgamentSearchBinding? = null
     private var listAdapter: pokemonListAdapter? = null
@@ -36,12 +36,14 @@ class SearchFragment: Fragment(), pokemonListAdapter.OnItemClickListener {
         _binding?.pokemonRecyclerview?.adapter = listAdapter
         _binding?.pokemonRecyclerview?.setHasFixedSize(true)
         val orientation = resources.configuration.orientation
-        val gridLayoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // In landscape mode, you might want more columns
-            _binding?.pokemonRecyclerview?.layoutManager =  androidx.recyclerview.widget.GridLayoutManager(requireContext(), 5)
+            _binding?.pokemonRecyclerview?.layoutManager =
+                androidx.recyclerview.widget.GridLayoutManager(requireContext(), 5)
         } else {
             // In portrait mode
-            _binding?.pokemonRecyclerview?.layoutManager =  androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
+            _binding?.pokemonRecyclerview?.layoutManager =
+                androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
         }
         listAdapter?.setPokemonList(list)
         listAdapter?.listener = this

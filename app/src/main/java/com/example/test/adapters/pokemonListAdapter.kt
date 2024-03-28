@@ -23,7 +23,9 @@ class pokemonListAdapter(private val context: Context,
         val uniquePokemonList = pokemonList1.toSet().toMutableList()
         pokemonList.clear()
         pokemonList.addAll(uniquePokemonList)
-        notifyDataSetChanged()
+        if (this.binding != null) {
+            notifyDataSetChanged()
+        }
     }
 
     fun addPokemons(pokemonList1: List<ResultsResponse>) {
@@ -34,7 +36,9 @@ class pokemonListAdapter(private val context: Context,
             }
             pokemonList.add(pokemonList1[i])
         }
-        notifyDataSetChanged()
+        if (this.binding != null) {
+            notifyDataSetChanged()
+        }
     }
 
     override fun onBindViewHolder(holder: RecyclerViewViewHolder, position: Int) {

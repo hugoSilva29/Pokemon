@@ -1,5 +1,7 @@
 package com.example.test.adapters
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,8 +11,10 @@ import com.example.test.pokemonlist.Abilitiyes
 import com.example.test.pokemonlist.Ability
 import com.example.test.pokemonlist.Type
 import com.example.test.pokemonlist.Types
+import okhttp3.internal.notify
 
-class pokemonAbilityAdapter: RecyclerView.Adapter<pokemonAbilityAdapter.RecyclerViewViewHolder>() {
+class pokemonAbilityAdapter() :
+    RecyclerView.Adapter<pokemonAbilityAdapter.RecyclerViewViewHolder>() {
 
     private val pokemonList: ArrayList<Abilitiyes> = ArrayList()
     private var binding: AbilityLayoutBinding? = null
@@ -19,14 +23,16 @@ class pokemonAbilityAdapter: RecyclerView.Adapter<pokemonAbilityAdapter.Recycler
         if (pokemonList1 != null) {
             pokemonList.addAll(pokemonList1)
         }
-        notifyDataSetChanged()
+        if (this.binding != null) {
+            notifyDataSetChanged()
+        }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): RecyclerViewViewHolder {
-        binding= AbilityLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        binding = AbilityLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RecyclerViewViewHolder(binding!!)
     }
 
@@ -40,11 +46,11 @@ class pokemonAbilityAdapter: RecyclerView.Adapter<pokemonAbilityAdapter.Recycler
     }
 
     override fun getItemCount(): Int {
-       return pokemonList.size
+        return pokemonList.size
     }
 
 
-    class RecyclerViewViewHolder(private val binding: AbilityLayoutBinding) :
+    open class RecyclerViewViewHolder(private val binding: AbilityLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(pokemon: Ability) {

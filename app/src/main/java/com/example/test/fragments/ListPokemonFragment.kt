@@ -60,20 +60,21 @@ class ListPokemonFragment : Fragment(),
         super.onViewCreated(view, savedInstanceState)
 
     }
+
     private fun loadPokemons() {
         lifecycleScope.launch {
-            val offset =0
-            val l = repo.getPokemons( limit,offset)
+            val offset = 0
+            val l = repo.getPokemons(limit, offset)
             addPokemons(l)
             setUpRecyclerView()
-            page=1
+            page = 1
         }
     }
 
-    private fun loadpokemons1(){
+    private fun loadpokemons1() {
         lifecycleScope.launch {
-            val offset =( page-1) * limit
-            val l = repo.getPokemons( limit,offset)
+            val offset = (page - 1) * limit
+            val l = repo.getPokemons(limit, offset)
             addPokemons(l)
             listAdapter?.addPokemons(list)
             page++  // Increment the page number for the next load
@@ -85,11 +86,10 @@ class ListPokemonFragment : Fragment(),
             val name: String = l.results[i].name
             var url: String
             if (l.results[i].url.length > 33) {
-                url  = l.results[i].url.replaceFirst(".$", "").substring(33)
+                url = l.results[i].url.replaceFirst(".$", "").substring(33)
                 url = url.substring(1, url.length - 1)
-            }
-            else{
-                 url= l.results[i].url
+            } else {
+                url = l.results[i].url
             }
             val id: Int = url.toInt()
             if (list.any { it.offset == id }) {
@@ -106,21 +106,25 @@ class ListPokemonFragment : Fragment(),
         _binding = null
 
     }
+
     private fun setUpRecyclerView() {
         listAdapter = pokemonListAdapter(requireActivity())
         _binding?.pokemonRecyclerview?.adapter = listAdapter
         _binding?.pokemonRecyclerview?.setHasFixedSize(true)
         val orientation = resources.configuration.orientation
-        val gridLayoutManager = if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // In landscape mode, you might want more columns
-            _binding?.pokemonRecyclerview?.layoutManager =  androidx.recyclerview.widget.GridLayoutManager(requireContext(), 5)
+            _binding?.pokemonRecyclerview?.layoutManager =
+                androidx.recyclerview.widget.GridLayoutManager(requireContext(), 5)
         } else {
             // In portrait mode
-            _binding?.pokemonRecyclerview?.layoutManager =  androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
+            _binding?.pokemonRecyclerview?.layoutManager =
+                androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2)
         }
         listAdapter?.setPokemonList(list)
         listAdapter?.listener = this
     }
+
     private fun setUpRecyclerView1() {
 
         _binding?.NestedScrollView?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
@@ -129,10 +133,10 @@ class ListPokemonFragment : Fragment(),
                 loadpokemons1()
             }
         })
-        if (listAdapter==null) {
+        if (listAdapter == null) {
             setUpRecyclerView()
         } else {
-             listAdapter?.addPokemons(list)
+            listAdapter?.addPokemons(list)
         }
     }
 

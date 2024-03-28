@@ -3,6 +3,7 @@ package com.example.test.dagger
 import android.content.Context
 import androidx.room.Room
 import com.example.test.repository.Repository
+import com.example.test.retorfit.PokemonSearchService
 import com.example.test.retorfit.PokemonService
 import com.example.test.room.RoomPokemonDao
 import com.example.test.room.RoomPokemonDatabase
@@ -92,45 +93,8 @@ class RetrofitModule {
 
 }
 
-@Module
-class SearchModule{
 
-    @Singleton
-    @Provides
-    fun provideRetrofit(
-        httpClient: OkHttpClient,
-        callAdapterFactory: RxJava2CallAdapterFactory
-    ): Retrofit =
-        Retrofit.Builder()
-            .client(httpClient)
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .baseUrl("https://beta.pokeapi.co/graphql/v1beta")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
-    @Singleton
-    @Provides
-    fun provideHttpClient(interceptor: Interceptor, cache: Cache): OkHttpClient =
-        OkHttpClient.Builder()
-            .addNetworkInterceptor(interceptor)
-            .cache(cache)
-            .build()
-
-    @Singleton
-    @Provides
-    fun provideInterceptor(): Interceptor =
-        HttpLoggingInterceptor(HttpLoggingInterceptor.Logger { Timber.d(it) })
-            .apply { level = HttpLoggingInterceptor.Level.BASIC }
-
-    @Singleton
-    @Provides
-    fun provideCache(context: Context): Cache = Cache(context.cacheDir, 5 * 5 * 1024)
-
-    @Singleton
-    @Provides
-    fun provideRxCallAdapter(): RxJava2CallAdapterFactory = RxJava2CallAdapterFactory.create()
-
-}
 
 @Module(includes = [ContextModule::class])
 class RoomModule {

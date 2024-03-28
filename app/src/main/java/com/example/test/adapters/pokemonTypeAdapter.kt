@@ -17,8 +17,9 @@ class pokemonTypeAdapter : RecyclerView.Adapter<pokemonTypeAdapter.RecyclerViewV
 
         pokemonList.addAll(pokemonList1)
 
-        notifyDataSetChanged()
-    }
+        if (this.binding != null) {
+            notifyDataSetChanged()
+        }    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -69,7 +70,7 @@ class pokemonTypeAdapter : RecyclerView.Adapter<pokemonTypeAdapter.RecyclerViewV
     }
 
 
-    class RecyclerViewViewHolder(private val binding: TypeLayoutBinding) :
+  open  class RecyclerViewViewHolder(val binding: TypeLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(pokemon: Type) {

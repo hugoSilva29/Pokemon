@@ -8,7 +8,7 @@ import com.example.test.pokemonlist.PokemonInfoResult
 import com.example.test.pokemonlist.ResultsResponse
 
 
-@Database(entities = [ResultsResponse::class,PokemonInfoResult::class], version = 3, exportSchema = true)
+@Database(entities = [ResultsResponse::class,PokemonInfoResult::class], version = 3, exportSchema = false)
 abstract class RoomPokemonDatabase : RoomDatabase() {
 
     abstract fun roomPokemonDao() : RoomPokemonDao

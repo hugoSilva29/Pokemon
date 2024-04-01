@@ -36,7 +36,7 @@ class ListPokemonFragment : Fragment(),
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
     private var list: MutableList<ResultsResponse> = mutableListOf()
     override fun onAttach(context: Context) {
         (context.applicationContext as MyApp).appComponent.injectPokemonList(this)
@@ -51,7 +51,7 @@ class ListPokemonFragment : Fragment(),
         lifecycleScope.launch {
 
             loadPokemons()
-            setUpRecyclerView1()
+            setUpNestedScrollView()
         }
         return binding.root
     }
@@ -71,10 +71,9 @@ class ListPokemonFragment : Fragment(),
         }
     }
 
-    private fun loadpokemons1() {
+    private fun loadPokemons(ofesset: Int) {
         lifecycleScope.launch {
-            val offset = (page - 1) * limit
-            val l = repo.getPokemons(limit, offset)
+            val l = repo.getPokemons(limit, ofesset)
             addPokemons(l)
             listAdapter?.addPokemons(list)
             page++  // Increment the page number for the next load
@@ -125,19 +124,17 @@ class ListPokemonFragment : Fragment(),
         listAdapter?.listener = this
     }
 
-    private fun setUpRecyclerView1() {
+    private fun setUpNestedScrollView() {
 
         _binding?.NestedScrollView?.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
             if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
                 // If the user has scrolled to the end of the list, load more items
-                loadpokemons1()
+                val offset = (page-1) * limit
+                loadPokemons(offset)
             }
         })
-        if (listAdapter == null) {
-            setUpRecyclerView()
-        } else {
             listAdapter?.addPokemons(list)
-        }
+
     }
 
     override fun onClick(namePoke: String?, imagePoke: String?) {

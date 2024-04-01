@@ -15,7 +15,7 @@ import java.io.IOException
 import javax.inject.Inject
 
 
-class Repository @Inject constructor(
+open class Repository @Inject constructor(
     private val pokemonService: PokemonService,
     private val roomPokemonDao: RoomPokemonDao,
     private val context: Context

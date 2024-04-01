@@ -16,12 +16,21 @@ import com.example.test.repository.Repository
 import com.example.test.retorfit.PokemonService
 import com.example.test.room.RoomPokemonDao
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.mockito.Mock
 import org.mockito.Mockito.verify
 
 @RunWith(MockitoJUnitRunner::class)
 @ExperimentalCoroutinesApi
 class FavoritesPokemonFragmentTest {
+    @Mock
+    private lateinit var mockPokemonService: PokemonService
 
+    @Mock
+    private lateinit var mockRoomPokemonDao: RoomPokemonDao
+
+    @Mock
+    private lateinit var mockContext: Context
+    private lateinit var repository: Repository
     private lateinit var fragment: favoritesPokemonFragment
     private lateinit var mockNavController: NavController
     private lateinit var scenario: FragmentScenario<favoritesPokemonFragment>
@@ -35,7 +44,7 @@ class FavoritesPokemonFragmentTest {
         mockNavController = Mockito.mock(NavController::class.java)
         fragment = favoritesPokemonFragment().also { fragment ->
             fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
-                fragment.repo = repository
+                fragment.repo = Repository(mockPokemonService, mockRoomPokemonDao, mockContext)
                 if (viewLifecycleOwner != null) {
                     // The fragment’s view has just been created
                     Navigation.setViewNavController(fragment.requireView(), mockNavController)

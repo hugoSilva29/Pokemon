@@ -63,10 +63,6 @@ class pokemonListAdapterTest {
         runOnUiThread {
             adapter.onBindViewHolder(viewHolder, 0)
         }
-      //  adapter.onBindViewHolder(viewHolder, 0)
-
-        // Here you can assert that the correct data was set on the view holder
-        // For example, if you have a TextView for the pokemon name, you can do:
          assertEquals("Pokemon1", viewHolder.itemView.findViewById<TextView>(R.id.tv_pokemon_name).text)
     }
 }

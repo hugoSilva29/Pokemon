@@ -18,9 +18,11 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+       // debuggable=true
     }
 
     buildTypes {
+
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -28,6 +30,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -38,7 +41,13 @@ android {
     }
     buildFeatures {
         viewBinding = true
+
+
     }
+
+    // packaging {
+    //  resources.excludes.add("mockito-extensions/org.mockito.plugins.MockMaker")
+    //}
 
 }
 
@@ -55,23 +64,26 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     implementation("androidx.room:room-common:2.6.1")
-    implementation ("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
     implementation("androidx.test.espresso:espresso-contrib:3.5.1")
-    implementation("androidx.fragment:fragment-testing:1.6.2")
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
 
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
+
+    androidTestUtil ("androidx.test:orchestrator:1.4.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation ("androidx.test:rules:1.5.0")
-    androidTestImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    //androidTestImplementation ("org.mockito:mockito-inline:2.23.0")
+    androidTestImplementation("org.mockito:mockito-android:5.5.0")
+    androidTestImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
     implementation("androidx.annotation:annotation:1.7.1")
 
     //dagger2
     implementation("com.google.dagger:dagger:2.46.1")
-    implementation ("com.google.dagger:dagger-android-support:2.46.1")
+    implementation("com.google.dagger:dagger-android-support:2.46.1")
     kapt("com.google.dagger:dagger-android-processor:2.46.1")
     kapt("com.google.dagger:dagger-compiler:2.46.1")
 
@@ -88,42 +100,25 @@ dependencies {
     implementation("com.squareup.retrofit2:adapter-rxjava2:2.3.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation ("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
     implementation("com.github.bumptech.glide:glide:4.13.0")
-    implementation ("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
+    implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
-
-    //mosby
-    //implementation("com.hannesdorfmann.mosby3:mvp-lce:3.1.0")
     //rxkotlin
     implementation("io.reactivex.rxjava2:rxkotlin:2.3.0")
     implementation("io.reactivex.rxjava2:rxandroid:2.1.1")
-    //glide
-    //implementation("com.github.bumptech.glide:glide:4.7.1")
-    //kapt("com.github.bumptech.glide:compiler:4.7.1")
+
     //room
     implementation("androidx.room:room-runtime:2.6.1")
-    implementation ("androidx.room:room-ktx:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
-    implementation ("com.github.bumptech.glide:glide:4.13.0")
-    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation("com.github.bumptech.glide:glide:4.13.0")
+    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
 
-    //moshi
-    //implementation("com.squareup.moshi:moshi-kotlin:1.6.0")
-    //implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
-    //kapt("com.squareup.moshi:moshi-kotlin-codegen:1.6.0")
-    // Coroutines
-    // implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    //implementation (  "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
-    testImplementation ("org.hamcrest:hamcrest-all:1.3")
-    testImplementation ("androidx.arch.core:core-testing:2.2.0")
-    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
-    testImplementation ("org.mockito:mockito-core:4.3.1")
+    testImplementation("org.hamcrest:hamcrest-all:1.3")
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.1")
+    testImplementation("org.mockito:mockito-core:4.3.1")
 
-    androidTestImplementation ("org.mockito:mockito-android:4.3.1")
-
-    androidTestImplementation ("org.robolectric:robolectric:4.11.1")
-
-    androidTestImplementation ("org.robolectric:shadows-versioning:4.11.1")
 
 }

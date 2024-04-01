@@ -5,6 +5,15 @@
       <entry key="app">
         <State />
       </entry>
+      <entry key="onBindViewHolder_setsCorrectData() (1)">
+        <State />
+      </entry>
+      <entry key="testOnAttach()">
+        <State />
+      </entry>
+      <entry key="testOnDestroyView()">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

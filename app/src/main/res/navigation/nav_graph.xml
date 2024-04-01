@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.test.fragments.InfoPokemonFragment"
-        android:label="@string/second_fragment_label"
+        android:label="Info Pokemon"
         tools:layout="@layout/fragment_detail_pokemon">
 
         <action
